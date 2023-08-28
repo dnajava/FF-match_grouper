@@ -97,7 +97,7 @@ class Matchlists:
                 f.write('<td>&nbsp;</td>')
             f.write('</tr>')
             i += 1
-            print'.', end=" ")
+            print('.', end=" ")
 
 
         f.write('\n</table>\n</body>\n</html>')
