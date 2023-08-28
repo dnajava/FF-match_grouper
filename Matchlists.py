@@ -57,9 +57,9 @@ class Matchlists:
             j = 0
             print('<tr>', end=" ")
             for col in self.lists:
-                print('<td>', end=" ")
+                print('<th>', end=" ")
                 print(self.samoja(i, j), end=" ")
-                print('</td>', end=" ")
+                print('</th>', end=" ")
                 j += 1
             print('</tr>')
             i += 1
@@ -67,33 +67,42 @@ class Matchlists:
 
     def mkhtmltable(self, mode=1):
         print('Making html-table...')
-        length = len(self.lists)
+        mllength = len(self.lists)
         f = open("matchtable.html", "w")
-        f.write('<html><head>')
-        f.write('< link rel = "stylesheet" href = "styles.css">')
-        f.write('</head><body><table>')
-        f.write('<tr><td colspan = "')
-        f.write(str(len(self.lists)))
-        f.write('"><h1>Common Matches Table</h1></td></tr>')
-        i = 0
-        for row in self.lists:
-            j = 0
-            f.write('<tr>')
-            for col in self.lists:
-                f.write('<td>')
-                if i < j:
-                    f.write(str(self.samoja(i,j)))
-                    if i == j:
-                        f.write(str(len(self.lists[i]).matchlist))
-                        print('( x . x )', end=" ")
-                    else:
-                        f.write('&nbsp;')
-                        print('(   .   )', end=" ")
-                f.write('</td>')
-                j += 1
+        f.write('<html>\n<head>\n')
+        f.write('<link rel="stylesheet" href="styles.css">\n')
+        f.write('</head>\n')
+
+        # Body. First table header to html file
+        f.write('<body>\n<table>\n')
+        s = '<tr><td colspan = "' + str(mllength+1) + '"><h1>Common Matches Table</h1></td></tr>\n'
+        f.write(s)
+        f.write('<tr><th>&nbsp;</th>')
+        for ih in range(0, mllength):                         # Header row; kits numbers or identification
+            s = '<th>' + str(ih+1) + '</th>'
+            f.write(s)
+        f.write('</tr>\n')
+
+        i = 0                                                   # i is list index number and rows after headers start 0
+        for row in self.lists:                                  # row index line
+            f.write(s)
+            for i2 in range(0, i):                              # print common matches to diagonal - 1
+                s = '<td>' + str(self.samoja(0, i-1)) + '</td>'
+                f.write(s)
+            len3 = len(self.lists[i].matchlist)
+            s = '<td>' + str(len3) + '</td>'
+            f.write(s)
+            for i3 in range(i+1, mllength):
+                f.write('<td>&nbsp;</td>')
             f.write('</tr>')
-            print()
             i += 1
-        f.write('</table></body></html>')
+
+        f.write('\n</table>\n</body>\n</html>')
         f.close()
         print()
+
+    def mllengths(self):
+        i = 0
+        for x in self.lists:
+            print('i=', i, len(x.matchlist) )
+            i += 1
