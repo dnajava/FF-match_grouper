@@ -85,6 +85,7 @@ class Matchlists:
 
         i = 0                                                   # i is list index number and rows after headers start 0
         for row in self.lists:                                  # row index line
+            s = '<tr><th>' + str(i+1) + '</th>'
             f.write(s)
             for i2 in range(0, i):                              # print common matches to diagonal - 1
                 s = '<td>' + str(self.samoja(0, i-1)) + '</td>'
@@ -96,10 +97,11 @@ class Matchlists:
                 f.write('<td>&nbsp;</td>')
             f.write('</tr>')
             i += 1
+            print'.', end=" ")
+
 
         f.write('\n</table>\n</body>\n</html>')
         f.close()
-        print()
 
     def mllengths(self):
         i = 0
