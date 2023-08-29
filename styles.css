@@ -1,8 +1,46 @@
 h1 {
   font-size: 20px;
   text-align: center;
+  background-color: lightyellow;
   }
 
-table, th, td {
-  border: 1px solid;
+
+table, td {
+  border: 1px solid black;
+  background-color: lightgray;
+}
+
+#Base {
+  background-color: yellow;
+}
+
+
+th {
+  border: 1px solid black;
+  background-color: yellow;
+}
+
+.TableHeader {
+  background-color: lightblue;
+  color: black;
+  padding: 5px;
+  text-align: center;
+}
+
+.Diagonal {
+  background-color: lightblue;
+  color: black;
+  text-align: center;
+}
+
+.Before {
+  background-color: lightgray;
+  color: black;
+  text-align: center;
+}
+
+.Rest {
+  background-color: white;
+  color: black;
+  text-align: center;
 }
