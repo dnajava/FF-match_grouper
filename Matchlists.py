@@ -3,8 +3,12 @@ from csv import reader
 from datetime import date
 from Matches import Matches
 
-mltypes = ['Unkwnown', 'FTDNA', 'MyHeritage']
+mltypes = ['Unkwnown', 'FTDNA', 'MyHeritage']       # Types of matchlists
 
+'''
+Matchlist contains matchlists of several kits. Not only FTDNA's but also MyHeritage's match list. In the future,
+maybe also 23 and me and Ancestry's match lists.
+'''
 class Matchlists:
     lists = []
     kitsnames = []
@@ -13,6 +17,9 @@ class Matchlists:
         self.lists = []
         self.kitnames = []
 
+    '''
+    Read full names of each kits from named file.
+    '''
     def readkitsnames(self):
         try:
             with open('kitsnames.csv', 'r') as read_obj:
@@ -31,10 +38,16 @@ class Matchlists:
     def __getitem__(self):
         return self.lists
 
+    '''
+    Only for test purposes. Show all kit id's and full names of tested persons.
+    '''
     def showkitsnames(self):
         for k in self.kitsnames:
             print(k)
 
+    '''
+    Read all matches of one kit's autosomal match list
+    '''
     def get_FTDNA_matchlists(self, dlpath: str = ''):
         if dlpath == '':
             self.lists = None
@@ -54,6 +67,11 @@ class Matchlists:
                         (self.lists).append(newkit)
         return True
 
+    '''
+    Change to MyHeritage matchlist finnish month to int
+    '''
+    @param s month as finnish word
+    @return month with int
     def month(s: str) -> int:
         match s[0]:
             case 'k':
@@ -95,6 +113,10 @@ class Matchlists:
             case _:
                 return 0
 
+    '''
+    Read MyHeritage kit match list.
+    '''
+    @param dlpath Download filw sith path to that file.
     def get_MyHeritage_matchlists(self, dlpath : str = ''):
         if dlpath == '':
             self.lists = None
@@ -115,10 +137,20 @@ class Matchlists:
                     (self.lists).append(newkit)
         return False
 
-    def show(self, mode : int = 1):
+    '''
+    For test purposes. Show matchlists of all kits.
+    '''
+    @param mode Mode like the html table displaying mode
+    def show(self, mode: int = 1):
         for x in self.lists:
             x.show(mode)
 
+    '''
+    If the parameter text strings are similair or not.    
+    '''
+    @param eka A string of text (name)
+    @param toka A string of text (name)
+    @return bool Are the parameter strings similair or not
     def sama_nimi(self, eka: str, toka: str) -> bool:
         if len(eka) != len(toka):
             return False
@@ -127,6 +159,12 @@ class Matchlists:
                 return False
         return True
 
+    '''
+    Compares matchlists of two (different) kit and calculates count of same names. They are common matches.
+    '''
+    @param i_p Index of first match list
+    @param j_p Index of second match list
+    @return Count of same names ie. common matches
     def samoja(self, i_p: int, j_p: int) -> int:
         if self.lists[i_p].matchlist == None or self.lists[i_p].matchlist == None:
             return 0
@@ -139,12 +177,21 @@ class Matchlists:
                             samoja += 1
         return samoja
 
+    '''
+    Find the name of the tested person of a kit.
+    '''
+    @param kit_p Kit id (FTDNA)
+    @return Full name of the name of the tested person.
     def findname(self, kit_p: str) -> str:
         for a in self.kitsnames:
             if a[0] == kit_p:
                 return a[1]
         return 'Unknown'
 
+    '''
+    Print common match table to screen.
+    '''
+    @param mode Print only row number, or kit id or name of tested person.
     def mktable(self, mode=1):
         print('<html><head></head><body><table>')
         i = 0
@@ -160,10 +207,13 @@ class Matchlists:
             i += 1
         print('</table></body></html>')
 
-    # Parameter mode_p
-    # 0, only row number to left column number
-    # 1, kit id and number of row to left
-    # 2, name of tested person, kit id and row number to left
+    '''
+    Print html table to html file. Contains common matches and matches of each kits
+    0, only row number to left column number
+    1, kit id and number of row to left
+    2, name of tested person, kit id and row number to left
+    '''
+    @param mode_p Print only line number or kit id or full name
     def mkhtmltable(self, mode_p: int = 0):
         print('Making html-table...')
         mllength = len(self.lists)
@@ -232,6 +282,9 @@ class Matchlists:
         f.write('\n</table>\n</body>\n</html>')
         f.close()
 
+    '''
+    For test purposes. Print length of all matchlists.
+    '''
     def mllengths(self):
         i = 0
         for x in self.lists:
