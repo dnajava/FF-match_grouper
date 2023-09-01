@@ -1,7 +1,15 @@
+'''
+Names of tested persons of kits. Load them from a csv file.
+'''
 class KitNames:
     def __KitNames(self):
         list = []
 
+    '''
+    Read names of tested persons from file
+    '''
+    @param fname_p File name of names of kits file. If not set, use kitsnames.csv.
+    @return bool Did the reading success?
     def read_namelist(self, fname_p='') -> bool:
         if fname_p == '':
             fname_p = 'kitsnames.csv'
@@ -25,11 +33,20 @@ class KitNames:
                 read_obj.close()
         return True
 
+    '''
+    Find full name of tested person of a kit
+    '''
+    @param kit_p Kit id
+    @return str Full name of tested person of a kit
     def getname(self, kit_p: str) -> str:
         for x in self.list:
             if kit_p == self.list[kit_p][2]:
                 return self.list[kit_p][2]
 
+    '''
+    For test purposes. Show
+    '''
+    @param mode_p Print whole list item, only kit id or kit id and full name.
     def show(self, mode_p=0):
         match mode_p:
             case 0:
