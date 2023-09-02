@@ -193,22 +193,26 @@ class Matchlists:
                             samoja += 1
         return samoja
 
-    '''
-    Find the name of the tested person of a kit.
-    '''
-    @param kit_p Kit id (FTDNA)
-    @return Full name of the name of the tested person.
+
     def findname(self, kit_p: str) -> str:
+        '''
+        Find the name of the tested person of a kit.
+        :param str kit_p Kit id (FTDNA)
+        :return str Full name of the tested person
+        '''
+
         for a in self.kitsnames:
             if a[0] == kit_p:
                 return a[1]
         return 'Unknown'
 
-    '''
-    Print common match table to screen.
-    '''
-    @param mode Print only row number, or kit id or name of tested person.
+
     def mktable(self, mode=1):
+        '''
+        Print common match table to screen.
+        :param int mode Print only row number, or kit id or name of tested person
+        '''
+
         print('<html><head></head><body><table>')
         i = 0
         for row in self.lists:
@@ -223,14 +227,15 @@ class Matchlists:
             i += 1
         print('</table></body></html>')
 
-    '''
-    Print html table to html file. Contains common matches and matches of each kits
-    0, only row number to left column number
-    1, kit id and number of row to left
-    2, name of tested person, kit id and row number to left
-    '''
-    @param mode_p Print only line number or kit id or full name
     def mkhtmltable(self, mode_p: int = 0):
+        '''
+        Print html table to html file. Contains common matches and matches of each kits
+        0, only row number to left column number
+        1, kit id and number of row to left
+        2, name of tested person, kit id and row number to left
+        :param int mode_p Print only line number or kit id or full name
+        '''
+
         print('Making html-table...')
         mllength = len(self.lists)
         f = open("matchtable.html", "w")
@@ -298,10 +303,11 @@ class Matchlists:
         f.write('\n</table>\n</body>\n</html>')
         f.close()
 
-    '''
-    For test purposes. Print length of all matchlists.
-    '''
     def mllengths(self):
+        '''
+        For test purposes. Print length of all matchlists.
+        '''
+
         i = 0
         for x in self.lists:
             print('i=', i, len(x.matchlist) )
