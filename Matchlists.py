@@ -5,11 +5,12 @@ from Matches import Matches
 
 mltypes = ['Unkwnown', 'FTDNA', 'MyHeritage']       # Types of matchlists
 
-'''
-Matchlist contains matchlists of several kits. Not only FTDNA's but also MyHeritage's match list. In the future,
-maybe also 23 and me and Ancestry's match lists.
-'''
 class Matchlists:
+    '''
+    Matchlist contains matchlists of several kits. Not only FTDNA's but also MyHeritage's match list. In the future,
+    maybe also 23 and me and Ancestry's match lists.
+    '''
+
     lists = []
     kitsnames = []
 
@@ -17,10 +18,12 @@ class Matchlists:
         self.lists = []
         self.kitnames = []
 
-    '''
-    Read full names of each kits from named file.
-    '''
+
     def readkitsnames(self):
+        '''
+        Read full names of each kits from named file.
+        '''
+
         try:
             with open('kitsnames.csv', 'r') as read_obj:
                 csv_reader = reader(read_obj)
@@ -38,17 +41,21 @@ class Matchlists:
     def __getitem__(self):
         return self.lists
 
-    '''
-    Only for test purposes. Show all kit id's and full names of tested persons.
-    '''
+
     def showkitsnames(self):
+        '''
+        Only for test purposes. Show all kit id's and full names of tested persons.
+        '''
+
         for k in self.kitsnames:
             print(k)
 
-    '''
-    Read all matches of one kit's autosomal match list
-    '''
+
     def get_FTDNA_matchlists(self, dlpath: str = ''):
+        '''
+        Read all matches of one kit's autosomal match list
+        '''
+
         if dlpath == '':
             self.lists = None
             return False
@@ -67,12 +74,14 @@ class Matchlists:
                         (self.lists).append(newkit)
         return True
 
-    '''
-    Change to MyHeritage matchlist finnish month to int
-    '''
-    @param s month as finnish word
-    @return month with int
+
     def month(s: str) -> int:
+        '''
+        Change to MyHeritage matchlist finnish month to int
+        :param str Finnish Month name
+        :return int Month
+        '''
+
         match s[0]:
             case 'k':
                 kk = 6
@@ -113,11 +122,12 @@ class Matchlists:
             case _:
                 return 0
 
-    '''
-    Read MyHeritage kit match list.
-    '''
-    @param dlpath Download filw sith path to that file.
     def get_MyHeritage_matchlists(self, dlpath : str = ''):
+        '''
+        Read MyHeritage kit match list
+        :param str dlpath Download filw sith path to that file
+        '''
+
         if dlpath == '':
             self.lists = None
             return False
@@ -137,21 +147,25 @@ class Matchlists:
                     (self.lists).append(newkit)
         return False
 
-    '''
-    For test purposes. Show matchlists of all kits.
-    '''
-    @param mode Mode like the html table displaying mode
+
     def show(self, mode: int = 1):
+        '''
+        For test purposes. Show matchlists of all kits.
+        :param int mode Mode like the html table displaying mode
+        '''
+
         for x in self.lists:
             x.show(mode)
 
-    '''
-    If the parameter text strings are similair or not.    
-    '''
-    @param eka A string of text (name)
-    @param toka A string of text (name)
-    @return bool Are the parameter strings similair or not
+
     def sama_nimi(self, eka: str, toka: str) -> bool:
+        '''
+        If the parameter text strings are similair or not.
+        :param str eka A string of text (name)
+        :param str toka A string of text (name)
+        :return bool Are the parameter strings similair or not
+        '''
+
         if len(eka) != len(toka):
             return False
         for i in range(len(eka)):
@@ -159,13 +173,15 @@ class Matchlists:
                 return False
         return True
 
-    '''
-    Compares matchlists of two (different) kit and calculates count of same names. They are common matches.
-    '''
-    @param i_p Index of first match list
-    @param j_p Index of second match list
-    @return Count of same names ie. common matches
+
     def samoja(self, i_p: int, j_p: int) -> int:
+        '''
+        Compares matchlists of two (different) kit and calculates count of same names. They are common matches.
+        :param int i_p Index of first match list
+        :param int j_p Index of second match list
+        :return int Count of same names ie. common matches
+        '''
+
         if self.lists[i_p].matchlist == None or self.lists[i_p].matchlist == None:
             return 0
         samoja = 0

@@ -4,7 +4,7 @@
 from Matchlists import Matchlists
 
 if __name__ == '__main__':
-    DL = '/path/to/matchlists/'
+    DL = '/home/ilpo/Lataukset/'
     ml = Matchlists()
     ml.get_FTDNA_matchlists(DL)
     ml.get_MyHeritage_matchlists(DL)

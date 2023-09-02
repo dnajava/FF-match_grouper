@@ -1,9 +1,10 @@
 from csv import reader
 
-'''
-Matchlist of one kit.
-'''
 class Matches:
+    '''
+    Matchlist of one kit.
+    '''
+
     type = None                         # Type of mach list
     kit = None                          # Kit id
     date = None                         # Date of match list
@@ -19,12 +20,14 @@ class Matches:
     def setday(self, day_p: date):
         self.date = day_p
 
-    '''
-    Read FTDNA matchlist.
-    '''
-    @param fname_p File name of match file.
-    @return Did the reading succeed?
+
     def read_ftdna_matchlist(self, fname_p='') -> bool:
+        '''
+        Read FTDNA matchlist.
+        :param str fname_p File name of match file.
+        : return bool Did the reading succeed?
+        '''
+
         if fname_p == '':
             return False
         tempkits = []
@@ -46,12 +49,14 @@ class Matches:
         self.matchlist = tempkits
         return True
 
-    '''
-    Read MyHeritage matchlist.
-    '''
-    @param fname_p File name of match file.
-    @return Did the reading succeed?
+
     def read_MyHeritageMatchlist(self, fname_p='') -> bool:
+        '''
+        Read MyHeritage matchlist.
+        :param str fname_p File name of match file
+        :return bool Did the reading success?
+        '''
+
         if fname_p == '':
             return False
         tempkits = []
@@ -73,13 +78,13 @@ class Matches:
         self.matchlist = tempkits
         return True
 
-    '''
-    For test purposes. Print kit id and date of file. Extended test print also names of matches.
-    '''
-    @param fname_p File name of match file.
-    @return Did the reading succeed?
 
     def show(self, mode=1):
+        '''
+        For test purposes. Print kit id and date of file. Extended test print also names of matches.
+        :param int mode Printing mode kit id or full name of tested person
+        :return bool Did the reading succeed?
+        '''
         print('Kit', self.kit, self.date)
         if(mode == 2):
             for x in self.matchlist:
