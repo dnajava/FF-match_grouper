@@ -4,11 +4,14 @@
 from Matchlists import Matchlists
 
 if __name__ == '__main__':
-    DL = '/path/to/match/lists/'
+    DL = '/home/ilpo/Lataukset/'
+    debug = 0
+
     ml = Matchlists()
-    ml.get_FTDNA_matchlists(DL)
-    ml.get_MyHeritage_matchlists(DL)
+    ml.get_FTDNA_matchlists(DL, debug)
+    ml.get_MyHeritage_matchlists(DL, debug)
     ml.readkitsnames()
+
 
     '''
     # Parameter:

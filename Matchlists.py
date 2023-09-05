@@ -51,10 +51,13 @@ class Matchlists:
             print(k)
 
 
-    def get_FTDNA_matchlists(self, dlpath: str = ''):
+    def get_FTDNA_matchlists(self, dlpath: str = '', debug_p: int = 0):
         '''
         Read all matches of one kit's autosomal match list
         '''
+
+        if debug_p > 0:
+            print('Get FTDNA matchlists from path', dlpath)
 
         if dlpath == '':
             self.lists = None
@@ -64,13 +67,15 @@ class Matchlists:
             for entry in entries:
                 if (entry.name).endswith('.csv'):
                     if ('Family' in entry.name and 'Finder' in entry.name and 'Matches' in entry.name):
+                        if debug_p > 1:
+                            print('Found ', entry.name)
                         s2 = (entry.name).split('_')
                         newkit = Matches()
                         newkit.type = 'FTDNA'
                         newkit.kit = s2[0]
                         newkit.name = ''
                         newkit.date = date(int(s2[4][0:4]), int(s2[4][5:7]), int(s2[4][8:10]))
-                        newkit.read_ftdna_matchlist((dlpath + entry.name))
+                        newkit.read_ftdna_matchlist((dlpath + entry.name), debug_p)
                         (self.lists).append(newkit)
         return True
 
@@ -122,11 +127,14 @@ class Matchlists:
             case _:
                 return 0
 
-    def get_MyHeritage_matchlists(self, dlpath : str = ''):
+    def get_MyHeritage_matchlists(self, dlpath : str = '', debug_p: int = 0):
         '''
         Read MyHeritage kit match list
         :param str dlpath Download filw sith path to that file
         '''
+
+        if debug_p > 0:
+            print('Get MyHeritage matchlists from path', dlpath)
 
         if dlpath == '':
             self.lists = None
@@ -136,6 +144,8 @@ class Matchlists:
             ind = 0
             for entry in entries:
                 if ((entry.name).endswith('.csv')) and ('DNA-osumalista' in entry.name):
+                    if debug_p > 1:
+                        print('Found ', entry.name)
                     self.type = 'MyHeritage'
                     newkit = Matches()
                     newkit.type = 'MyHeritage'
@@ -143,7 +153,7 @@ class Matchlists:
                     s = entry.name.split(' ')
                     newkit.name = s[0] + ' ' + s[1]
                     newkit.date = date(2023,8, 28)
-                    newkit.read_MyHeritageMatchlist((dlpath + entry.name))
+                    newkit.read_MyHeritageMatchlist((dlpath + entry.name), debug_p)
                     (self.lists).append(newkit)
         return False
 

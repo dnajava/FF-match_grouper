@@ -21,7 +21,7 @@ class Matches:
         self.date = day_p
 
 
-    def read_ftdna_matchlist(self, fname_p='') -> bool:
+    def read_ftdna_matchlist(self, fname_p='', debug_p: int = 0) -> bool:
         '''
         Read FTDNA matchlist.
         :param str fname_p File name of match file.
@@ -36,6 +36,8 @@ class Matches:
                 csv_reader = reader(read_obj)
                 ekarivi = True  # Skip first header row of match list
                 for m in csv_reader:
+                    if debug_p > 2:
+                        print('Read', m)
                     if ekarivi == False:
                         tempkits.append(m)
                     else:
@@ -50,7 +52,7 @@ class Matches:
         return True
 
 
-    def read_MyHeritageMatchlist(self, fname_p='') -> bool:
+    def read_MyHeritageMatchlist(self, fname_p='', debug_p: int = 0) -> bool:
         '''
         Read MyHeritage matchlist.
         :param str fname_p File name of match file
@@ -65,6 +67,8 @@ class Matches:
                 csv_reader = reader(read_obj)
                 ekarivi = True  # Skip first header row of match list
                 for m in csv_reader:
+                    if debug_p > 2:
+                        print('Read', m)
                     if ekarivi == False:
                         tempkits.append(m[1])
                     else:
