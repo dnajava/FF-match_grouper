@@ -4,7 +4,7 @@
 from Matchlists import Matchlists
 
 if __name__ == '__main__':
-    DL = '/home/ilpo/Lataukset/'
+    DL = '/path/to/matchlists/directpry/'
     debug = 0
 
     ml = Matchlists()
